@@ -4,28 +4,17 @@ import listaIndicacoes from "./listaIndicacoes.js";
 import listaApostila from "./listaApostila.js";
 
 
-let loading = `
-<div class="main" id="load">
-    <div class="loading">
-        <img src="imagem/Perfil.svg" alt="Logo" class="logo">
-        <h4>CASULO CORDEL</h4>
-        <div class="animation-bar"></div>
-    </div>
-</div>
-`
-let destino = $("#destinoAviso");
-
-destino.append(loading);
-setTimeout(function(){
-  $("header").remove()
-}, 2000)
+const load = document.querySelector('.main');
+window.addEventListener("load", function(){
+    load.style.display = "none";
+})
 
 
 
 for (let equipe of listaEquipe){
   const cardEquipe = `
                     <div class="integrante">
-                      <img class="imagemIntegrante" src=${equipe.imagem}>
+                      <img class="imagemIntegrante" src=${equipe.imagem} alt="${equipe.textoAlternativo}">
                       <div class="descricao">
                           <p>${equipe.nome}</p>
                           <p>${equipe.funcao}</p>       
@@ -39,7 +28,7 @@ for (let equipe of listaEquipe){
 for (let evento of listaEventos){
   const cardEvento = `
                   <div class="imgEvento">
-                    <img class="imagemEvento" src=${evento.imagem}>
+                    <img class="imagemEvento" src=${evento.imagem} alt=${evento.textoAlternativo}>
                     <div class="descricao-evento">
                       <p>${evento.tituloEvento}</p>
                       <p>${evento.data}</p>
@@ -54,7 +43,7 @@ for (let evento of listaEventos){
 for (let indicacao of listaIndicacoes){
   const cardIndicacao = `
                           <div class="imgEvento">
-                            <img src=${indicacao.imagem}>
+                            <img class="imgIndicacoes" src=${indicacao.imagem} alt=${indicacao.textoAlternativo}>
                             <div class="descricao-indicacao">
                               <p>${indicacao.tituloIndic}</p>
                               <p>${indicacao.autor}</p>
@@ -70,7 +59,7 @@ for (let indicacao of listaIndicacoes){
 for (let apostila of listaApostila){
   const cardApostila = `
               <div class="apostila">
-                  <img src=${apostila.imagem}>
+                  <img src=${apostila.imagem} alt=${apostila.textoAlternativo}>
                   <div class="descricao-apostila">                    
                     <span>${apostila.tituloApost}</span>
                     <p>${apostila.descricao}}</p>
@@ -93,6 +82,10 @@ let btnApostilas = document.getElementById("apostilas");
 let btnEventos = document.getElementById("eventos");
 let btnIndicacoes = document.getElementById("indicacoes");
 
+let btnEquipeMobile = document.getElementById("btnEquipeMobile");
+let btnApostilasMobile = document.getElementById("btnApostilasMobile");
+let btnEventosMobile = document.getElementById("btnEventosMobile");
+let btnIndicacoesMobile =document.getElementById("btnIndicacoesMobile");
 
 //Selecionando a lista de botões para deixar ativo ao clicar
 let list = document.querySelectorAll(".list");
@@ -109,9 +102,19 @@ for (let i = 0; i< list.length; i++) {
 //Função de abrir modal da Equipe
 let modalEquipe = document.getElementById("modalEquipe");
 let atualStyleEquipe = modalEquipe.style.display;
+
+
+let modal = document.getElementById("modal");
+let botaoClose = document.getElementById("icone-outline");
+let atualStyleModal = modal.style.display;
+
+
+
+
 function abrirModalEquipe() { 
 
   if (atualStyleEquipe != 'none') {
+    modal.style.display = 'block'
     modalEquipe.style.display= 'block'
     modalApostilas.style.display = 'none'
     modalEventos.style.display = 'none'
@@ -121,15 +124,12 @@ function abrirModalEquipe() {
   $(".integrante").fadeOut(10).fadeIn(1000)
 }
 
+
+
+
+btnEquipeMobile.addEventListener("click", abrirModalEquipe)
 btnEquipe.addEventListener("click", abrirModalEquipe)
-window.onclick = function(event) {
-  // event.preventDefault()
-  const modalEquipe = document.getElementById("modalEquipe")
-  if (event.target == modalEquipe) {
-    abrirModalEquipe()
-    
-  } 
-}
+
 
 
 //Função de abrir modal das Apostilas
@@ -138,6 +138,7 @@ let atualStyleApostilas = modalApostilas.style.display
 function abrirModalApostilas(){
 
   if (atualStyleApostilas != 'none'){
+    modal.style.display = 'block'
     modalEquipe.style.display = 'none'
     modalEventos.style.display = 'none'
     modalIndicacoes.style.display = 'none'
@@ -146,22 +147,18 @@ function abrirModalApostilas(){
   } 
   $(".apostila").fadeOut(10).fadeIn(1000)
 }
-
+btnApostilasMobile.addEventListener("click", abrirModalApostilas)
 btnApostilas.addEventListener("click", abrirModalApostilas)
-window.onclick = function(event) {
-  // event.preventDefault()
-  const modalApostilas = document.getElementById("modalApostilas")
-  if (event.target == modalApostilas) {
-    abrirModalApostilas()
-    
-  }
-}
+
+
 
 //Abrir modal de Eventos
+
 let modalEventos = document.getElementById("modalEventos")
 let atualStyleEventos = modalEventos.style.display
 function abrirModalEventos(){
   if (atualStyleEventos != 'none'){
+    modal.style.display = 'block'
     modalEquipe.style.display = 'none'
     modalApostilas.style.display = 'none'
     modalIndicacoes.style.display = 'none'
@@ -170,39 +167,36 @@ function abrirModalEventos(){
   }
   $(".imgEvento").fadeOut(10).fadeIn(1000)
 }
-
+btnEventosMobile.addEventListener("click", abrirModalEventos)
 btnEventos.addEventListener("click", abrirModalEventos)
-window.onclick = function(event) {
-  // event.preventDefault()
-  const modalEventos = document.getElementById("modalEventos")
-  if (event.target == modalEventos){
-    abrirModalEventos()
-  }
-}
+
+
 
 //Abrir modal de Indicações
 let modalIndicacoes = document.getElementById("modalIndicacoes")
+
 let atualStyleIndicacoes = modalIndicacoes.style.display
 function abrirModalIndicacoes(){
   if (atualStyleIndicacoes != 'none'){
+    modal.style.display = 'block'
     modalEquipe.style.display = 'none'
     modalApostilas.style.display = 'none'
     modalEventos.style.display = 'none'
     modalIndicacoes.style.display = 'block'
+
+    
   }
   $(".imgEvento").fadeOut(10).fadeIn(1000)
 }
-
+btnIndicacoesMobile.addEventListener("click", abrirModalIndicacoes)
 btnIndicacoes.addEventListener("click", abrirModalIndicacoes)
-window.onclick = function (event){
-  const modalIndicacoes = document.getElementById("modalIndicacoes")
-  if (event.target == modalIndicacoes){
-    abrirModalIndicacoes()
+
+
+/*Fechando Modal*/
+ 
+botaoClose.addEventListener("click", fecharModal)
+function fecharModal(){
+  if(atualStyleModal != 'block'){
+    modal.style.display = 'none';
   }
 }
-
-
-
-
-
-

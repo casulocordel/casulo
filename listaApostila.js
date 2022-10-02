@@ -7,7 +7,8 @@ const listaApostila = [
         data: "2021",
         btnBaixar: "https://drive.google.com/file/d/1dC243tZnJASZhdPtnqgw-fbR8snI4iRG/view",
         btnVisualizar: "https://pt.calameo.com/read/007119649dcea6d69a8dc",
-        btnMarcaPag: "https://drive.google.com/file/d/1DZl_nNo_GjCOSfVXlezT6UZNMvtiRxUQ/view"
+        btnMarcaPag: "https://drive.google.com/file/d/1DZl_nNo_GjCOSfVXlezT6UZNMvtiRxUQ/view",
+        textoAlternativo: "Apostila(origem-da-vida)"
     },
 ]
 
